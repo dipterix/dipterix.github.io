@@ -1,0 +1,58 @@
+---
+title: "Some thoughts on RESA"
+output: html_document
+---
+
+*Inspired by "Relational Learning with Social Status Analysis" (http://www.public.asu.edu/~liangwu1/srl.pdf)*
+
+### Penalties on $W$
+Go back to the first optimization problem:
+$$\text{min }||V-W\times H^{T}||_{F}$$
+Treating everyone equally with same weight could be a bad choice. Social factors $c$ can bring the weight into consideration. Besides the method mentioned above, we could also add penalties to $w_i$ by:
+$$\text{min }\sum_{i=1}^{m}(v_{i}-w_{i}H^{T})(v_{i}-w_{i}H^{T})^{T}+f(c_{i})||w_{i}||_{L_{2}}^{2}$$
+
+Interpretation:
+
+$H$ represents attributes information, while $V$ stands for user's preference on these attributes. If user A is not important, then we might like to shrink $w_A$ to **avoid skewed preference**. Therefore penalties on each $w_i$ are different. They are controlled by $f(c_{i})$. For user A in this case, we need a relatively large $f(c_{A})$. Since $w_A$ is quite small, $f(w_{i})\searrow\text{ as }w_{i}\nearrow$
+
+The problem is, $\sum_{i=1}^{m}(v_{i}-w_{i}H^{T})(v_{i}-w_{i}H^{T})^{T}+f(c_{i})||w_{i}||_{L_{2}}^{2}$ is not convex for $c$. $c$ will goes to infinite during optimization. Therefore we need constraints on $c$.
+
+One of the constraints that might be useful is $\sum_{i=1}^{m}c_{i}\leq t$, where $t\gt0$. However, the number of users may change, then we need to find a function $t=t(n)$, where $n$ is total user numbers.
+
+Another method is group LASSO penalty $l_{1,2}$ mentioned in the paper.
+$$\frac{1}{2}\sum_{j}(\sum_{S_{i,j}=1}|c_{i}|)^{2}\lt t$$
+Since $l_{1,2}=\frac{1}{2}c^{T}SS^{T}c$, the final optimization problem could be:
+$$\sum_{i=1}^{m}(v_{i}-w_{i}H^{T})(v_{i}-w_{i}H^{T})^{T}+f(c_{i})||w_{i}||_{L_{2}}^{2}+\lambda c^{T}SS^{T}c$$
+where $\lambda$ needs to be tuned, and $f(w_{i})\searrow\text{ as }w_{i}\nearrow$ 
+
+### Neural Network
+Matrix factorization has many similarities to one singal layer neural network. Algorithms like SVD map user information to latent variable space which represents user preferences. If we treat the latent variable space as a hidden layer, the structure could be:
+
+
+![Hinton, 2007](C:\Users\Zhengjia\Documents\GitHub\dipterix\img\articles\rbm_rl.JPG)
+
+Weight is to $W$ what hidden layer is to $H$
+
+Next, we are going to integrate adjacent matrix $A_ij$ into the neural network:
+
+![Hinton, 2007](C:\Users\Zhengjia\Documents\GitHub\dipterix\img\articles\rbm_rl_1.JPG)
+
+Then use the binary features to labeling users:
+
+![Hinton, 2007](C:\Users\Zhengjia\Documents\GitHub\dipterix\img\articles\rbm_rl_2.JPG)
+
+
+### A Brief Intro to RESA
+
+Paper “Relational Learning with Social Status Analysis” introduces RESA framework. The basic idea is to label social network users combining their attributes with social status/influence.
+
+Assign $V\in\mathbb{R}^{n\times m}$ as user attribute matrix, with each row representing a user. The original idea is to factorize $V$ to user features $W$ and attribute features $H$.
+$$V_{ij}=(W\times H^{T})_{ij}+\epsilon_{ij}$$
+or
+$$\text{min }||V-W\times H^{T}||_{F}$$
+
+On the one hand, to take account for user social status defined as $C$ ($c_i$ for each user $i$), we add them to the residules. On the other hand, we add constraints to $C_i$s by applying group LASSO penalty. The optimization problem become:
+$$\begin{array}{cc}
+\text{min}_{W,H} & \sum_{i=1}^{m}c_{i}(v_{i}-w_{i}H^{T})(v_{i}-w_{i}H^{T})^{T}+\frac{1}{2}c^{T}SS^{T}c\\
+\text{subject to} & \sum_{i=1}^{m}c_{i}=1
+\end{array}$$
