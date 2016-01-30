@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+	<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+	<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+	<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+	<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>web-product-light - Slider Revolution</title>
+		<meta name="description" content="Slider Revolution Example" />
+		<meta name="keywords" content="fullscreen image, grid layout, flexbox grid, transition" />
+		<meta name="author" content="ThemePunch" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<!-- LOAD JQUERY LIBRARY -->
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.js"></script>
+
+		<!-- LOADING FONTS AND ICONS -->
+		<link href="http://fonts.googleapis.com/css?family=Raleway:400,500,600,100" rel="stylesheet" property="stylesheet" type="text/css" media="all" /><link href="http://fonts.googleapis.com/css?family=Raleway:100,400,600,200,300" rel="stylesheet" property="stylesheet" type="text/css" media="all" />
+
+		<link rel="stylesheet" type="text/css" href="fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css">
+		<link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css">
+
+		<!-- REVOLUTION STYLE SHEETS -->
+		<link rel="stylesheet" type="text/css" href="css/settings.css">
+		<!-- REVOLUTION LAYERS STYLES -->
+		<style>.tp-caption.WebProduct-Title,.WebProduct-Title{color:rgba(51,51,51,1.00);font-size:90px;line-height:90px;font-weight:100;font-style:normal;font-family:Raleway;padding:0 0 0 0px;text-decoration:none;background-color:transparent;border-color:transparent;border-style:none;border-width:0px;border-radius:0 0 0 0px}.tp-caption.WebProduct-SubTitle,.WebProduct-SubTitle{color:rgba(153,153,153,1.00);font-size:15px;line-height:20px;font-weight:400;font-style:normal;font-family:Raleway;padding:0 0 0 0px;text-decoration:none;background-color:transparent;border-color:transparent;border-style:none;border-width:0px;border-radius:0 0 0 0px}.tp-caption.WebProduct-Content,.WebProduct-Content{color:rgba(153,153,153,1.00);font-size:16px;line-height:24px;font-weight:600;font-style:normal;font-family:Raleway;padding:0 0 0 0px;text-decoration:none;background-color:transparent;border-color:transparent;border-style:none;border-width:0px;border-radius:0 0 0 0px}.tp-caption.WebProduct-Button,.WebProduct-Button{color:rgba(255,255,255,1.00);font-size:16px;line-height:48px;font-weight:600;font-style:normal;font-family:Raleway;padding:0px 40px 0px 40px;text-decoration:none;background-color:rgba(51,51,51,1.00);border-color:rgba(0,0,0,1.00);border-style:none;border-width:2px;border-radius:0 0 0 0px;letter-spacing:1px;text-align:left}.tp-caption.WebProduct-Button:hover,.WebProduct-Button:hover{color:rgba(51,51,51,1.00);text-decoration:none;background-color:rgba(255,255,255,1.00);border-color:rgba(0,0,0,1.00);border-style:none;border-width:2px;border-radius:0 0 0 0px}</style>
+<style type="text/css">	#rev_slider_7_1_wrapper .tp-loader.spinner2{ background-color: #FFFFFF !important; } </style>
+<style type="text/css">html,body{margin:0; max-width:100%; overflow-x:hidden}.rs-fullvideo-cover{pointer-events:none}</style>
+				<style type="text/css">.hephaistos.tp-bullets{}.hephaistos.tp-bullets:before{content:" ";position:absolute;width:100%;height:100%;background:transparent;padding:10px;margin-left:-10px;margin-top:-10px;box-sizing:content-box}.hephaistos .tp-bullet{width:12px;height:12px;position:absolute;background:#999;border:3px solid #f5f5f5;border-radius:50%;cursor:pointer;box-sizing:content-box; box-shadow:0px 0px 2px 1px rgba(130,130,130,0.3)}.hephaistos .tp-bullet:hover,.hephaistos .tp-bullet.selected{background:#fff;  border-color:#000}.hephaistos .tp-bullet-image{}.hephaistos .tp-bullet-title{}</style>
+				
+<style type="text/css">.button-down-slider a{color:#fff}.tp-caption.whitedivider3px{color:#000000;text-shadow:none;background-color:rgb(44,159,92);background-color:rgba(44,159,92,1);text-decoration:none;font-size:0px;line-height:0;min-width:656px;min-height:4px;border-width:0px;border-color:rgb(0,0,0);border-style:none}.tp-caption.store_button_full_black a,.tp-caption.store_button_full a{position:absolute; color:#fff; text-shadow:none; font-size:14px; line-height:18px !important; font-family:"Montserrat";padding:25px 40px 25px 40px !important;margin:0px;  cursor:pointer;   background:none;  border-radius:30px; height:0px;   background:#2C9F5C;   background-color:rgb(44,159,92);  background-color:rgba(44,159,92,0.8); text-transform:uppercase}.tp-caption.store_button_full a{background:#2C9F5C;  border:none; background-color:rgb(44,159,92); background-color:rgba(44,159,92,0.8); color:#fff !important}.tp-caption.store_button_full_black a{background:#121212;  background-color:rgb(18,18,18); background-color:rgba(18,18,18,0.9);  border:none; color:#fff !important}.tp-caption.store_button_full_black a,.tp-caption.store_button_full a{line-height:0px !important}.tp-caption.store_button a:hover,.tp-caption.store_button_full a:hover{background:#2C9F5C !important}.tp-caption.store_button_full_black a:hover{background:#121212}.tp-caption.pmc-button{border-bottom:none !important}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.largeredbtn{font-family:"Raleway",sans-serif;font-weight:900;font-size:16px;line-height:60px;color:#fff !important;text-decoration:none;padding-left:40px;padding-right:80px;padding-top:22px;padding-bottom:22px;background:rgb(234,91,31); background:-moz-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(234,91,31,1)),color-stop(100%,rgba(227,58,12,1))); background:-webkit-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-o-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-ms-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:linear-gradient(to bottom,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5b1f',endColorstr='#e33a0c',GradientType=0 )}.largeredbtn:hover{background:rgb(227,58,12); background:-moz-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(227,58,12,1)),color-stop(100%,rgba(234,91,31,1))); background:-webkit-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-o-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-ms-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:linear-gradient(to bottom,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#e33a0c',endColorstr='#ea5b1f',GradientType=0 )}.fullrounded img{-webkit-border-radius:400px;-moz-border-radius:400px;border-radius:400px}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}.largeredbtn{font-family:"Raleway",sans-serif;font-weight:900;font-size:16px;line-height:60px;color:#fff !important;text-decoration:none;padding-left:40px;padding-right:80px;padding-top:22px;padding-bottom:22px;background:rgb(234,91,31); background:-moz-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(234,91,31,1)),color-stop(100%,rgba(227,58,12,1))); background:-webkit-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-o-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:-ms-linear-gradient(top,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); background:linear-gradient(to bottom,rgba(234,91,31,1) 0%,rgba(227,58,12,1) 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5b1f',endColorstr='#e33a0c',GradientType=0 )}.largeredbtn:hover{background:rgb(227,58,12); background:-moz-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(227,58,12,1)),color-stop(100%,rgba(234,91,31,1))); background:-webkit-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-o-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:-ms-linear-gradient(top,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); background:linear-gradient(to bottom,rgba(227,58,12,1) 0%,rgba(234,91,31,1) 100%); filter:progid:DXImageTransform.Microsoft.gradient( startColorstr='#e33a0c',endColorstr='#ea5b1f',GradientType=0 )}.fullrounded img{-webkit-border-radius:400px;-moz-border-radius:400px;border-radius:400px}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out;line-height:140%}.tp-caption a:hover{color:#ffa902}@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,700);.tp-caption a{color:#296169;text-shadow:none;text-decoration:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#296169}.tp-caption a{color:#296169;text-shadow:none;text-decoration:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#296169}.feature-round{color:#000;background:#fff;background:rgba(255,255,255,0.7);font-size:12px;width:100px;height:100px;line-height:14px;text-align:center;text-decoration:none;box-sizing:border-box;padding:35px 35px 35px 35px;background-color:transparent;border-radius:50px 50px 50px 50px;border-width:0px;border-color:#000000;border-style:none}.tp-caption a{color:#ff7302;text-shadow:none;-webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out}.tp-caption a:hover{color:#ffa902}</style>
+		<!-- REVOLUTION JS FILES -->
+		<script type="text/javascript" src="js/jquery.themepunch.tools.min.js"></script>
+		<script type="text/javascript" src="js/jquery.themepunch.revolution.min.js"></script>
+
+		<!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
+		<script type="text/javascript" src="js/extensions/revolution.extension.actions.min.js"></script>
+		<script type="text/javascript" src="js/extensions/revolution.extension.carousel.min.js"></script>
+		<script type="text/javascript" src="js/extensions/revolution.extension.kenburn.min.js"></script>
+		<script type="text/javascript" src="js/extensions/revolution.extension.layeranimation.min.js"></script>
+		<script type="text/javascript" src="js/extensions/revolution.extension.migration.min.js"></script>
+		<script type="text/javascript" src="js/extensions/revolution.extension.navigation.min.js"></script>
+		<script type="text/javascript" src="js/extensions/revolution.extension.parallax.min.js"></script>
+		<script type="text/javascript" src="js/extensions/revolution.extension.slideanims.min.js"></script>
+		<script type="text/javascript" src="js/extensions/revolution.extension.video.min.js"></script>
+	</head>
+	
+	<body>
+			
+
+<div id="rev_slider_7_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="web-product-light" style="background-color:transparent;padding:0px;">
+<!-- START REVOLUTION SLIDER 5.1.6 fullscreen mode -->
+	<div id="rev_slider_7_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.1.6">
+<ul>	<!-- SLIDE  -->
+    <li data-index="rs-26" data-transition="slidevertical" data-slotamount="1" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="assets/06f90-140212_KAP2_043.jpg"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off"  data-title="Intro" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+		<!-- MAIN IMAGE -->
+		<img src="assets/06f90-140212_KAP2_043.jpg"  alt=""  data-bgposition="center center" data-kenburns="on" data-duration="100" data-ease="Linear.easeNone" data-scalestart="110" data-scaleend="100" data-rotatestart="0" data-rotateend="0" data-offsetstart="0 0" data-offsetend="-20 0" class="rev-slidebg" data-no-retina>
+		<!-- LAYERS -->
+
+		<!-- LAYER NR. 1 -->
+		<div class="tp-caption tp-shape tp-shapewrapper  tp-resizeme" 
+			 id="slide-26-layer-11" 
+			 data-x="['center','center','center','center']" data-hoffset="['3','3','3','3']" 
+			 data-y="['middle','middle','middle','middle']" data-voffset="['64','64','64','64']" 
+						data-width="977"
+			data-height="587"
+			data-whitespace="normal"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="opacity:0.3;s:300;e:Power2.easeInOut;" 
+			 data-transform_out="opacity:0;s:1000;e:Power2.easeIn;s:1000;e:Power2.easeIn;" 
+			data-start="0" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 5;background-color:rgba(255, 255, 255, 0.20);border-color:rgba(0, 0, 0, 0.50);"> 
+		</div>
+
+		<!-- LAYER NR. 2 -->
+		<div class="tp-caption WebProduct-Title   tp-resizeme" 
+			 id="slide-26-layer-7" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['middle','middle','middle','middle']" data-voffset="['-11','-11','-152','-157']" 
+						data-fontsize="['90','90','75','75']"
+			data-lineheight="['90','90','75','70']"
+			data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="z:0;rX:0;rY:0;rZ:0;sX:0.9;sY:0.9;skX:0;skY:0;opacity:0;s:1500;e:Power3.easeInOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1000" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 6; white-space: nowrap; color: rgba(255, 255, 255, 1.00);">CloudSolar 
+		</div>
+
+		<!-- LAYER NR. 3 -->
+		<div class="tp-caption WebProduct-SubTitle   tp-resizeme" 
+			 id="slide-26-layer-10" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['middle','middle','middle','middle']" data-voffset="['82','82','-72','-72']" 
+						data-fontsize="['30','30','25','25']"
+			data-lineheight="['40','40','30','30']"
+			data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:[105%];z:0;rX:45deg;rY:0deg;rZ:90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			 data-mask_in="x:0px;y:0px;" 
+			data-start="1250" 
+			data-splitin="chars" 
+			data-splitout="none" 
+			data-responsive_offset="on" 
+
+			data-elementdelay="0.05" 
+			
+			style="z-index: 7; white-space: nowrap; font-size: 30px; line-height: 40px; color: rgba(242, 242, 242, 1.00);letter-spacing:2px;font-weight:500;">No Roof No Problem 
+		</div>
+
+		<!-- LAYER NR. 4 -->
+		<div class="tp-caption rev-btn rev-btn " 
+			 id="slide-26-layer-8" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['middle','middle','middle','middle']" data-voffset="['255','255','133','65']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+				data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Linear.easeNone;"
+				data-style_hover="c:rgba(51, 51, 51, 1.00);bg:rgba(255, 255, 255, 1.00);"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1750" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-actions='[{"event":"click","action":"jumptoslide","slide":"rs-27","delay":""}]'
+			data-responsive_offset="on" 
+			data-responsive="off"
+			
+			style="z-index: 8; white-space: nowrap; font-size: 16px; line-height: 48px; font-weight: 600; color: rgba(255, 255, 255, 1.00);font-family:Raleway;background-color:rgba(51, 51, 51, 1.00);padding:0px 40px 0px 40px;border-color:rgba(0, 0, 0, 1.00);border-width:2px;letter-spacing:1px;">GET STARTED TODAY 
+		</div>
+	</li>
+	<!-- SLIDE  -->
+    <li data-index="rs-29" data-transition="slidevertical" data-slotamount="1" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="assets/e116c-Untitled.png"  data-rotate="0"  data-saveperformance="off"  data-title="Get a License" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+		<!-- MAIN IMAGE -->
+		<img src="assets/e116c-Untitled.png"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+		<!-- LAYERS -->
+
+		<!-- BACKGROUND VIDEO LAYER -->
+		<div class="rs-background-video-layer" 
+			data-forcerewind="on" 
+			data-volume="0" 
+			data-ytid="RjXNDoQyY4c" 
+			data-videoattributes="version=3&amp;enablejsapi=1&amp;html5=1&amp;volume=0&amp;hd=1&wmode=opaque&showinfo=0&rel=0;;origin=http://;" 
+			data-videorate="1" 
+			data-videowidth="100%" 
+			data-videoheight="100%" 
+			data-videocontrols="none" 
+			data-videoloop="none" 
+			data-aspectratio="16:9" 
+			data-autoplay="true" 
+			data-autoplayonlyfirsttime="false" 
+			data-nextslideatend="true" 
+		></div>
+		<!-- LAYER NR. 1 -->
+		<a class="tp-caption WebProduct-Button rev-btn " 
+ href="http://codecanyon.net/item/slider-revolution-responsive-wordpress-plugin/2751380?ref=themepunch" target="_blank"			 id="slide-29-layer-8" 
+			 data-x="['right','right','right','center']" data-hoffset="['100','100','100','0']" 
+			 data-y="['bottom','bottom','bottom','bottom']" data-voffset="['100','100','100','50']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+				data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Linear.easeNone;"
+				data-style_hover="c:rgba(51, 51, 51, 1.00);bg:rgba(255, 255, 255, 1.00);"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1750" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-actions=''
+			data-responsive_offset="on" 
+			data-responsive="off"
+			
+			style="z-index: 5; white-space: nowrap;letter-spacing:1px;">BUY ON ENVATO 
+		</a>
+	</li>
+	<!-- SLIDE  -->
+    <li data-index="rs-27" data-transition="slidevertical" data-slotamount="1" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="assets/0db9e-yellow.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Examples" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+		<!-- MAIN IMAGE -->
+		<img src="assets/0db9e-yellow.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+		<!-- LAYERS -->
+
+		<!-- LAYER NR. 1 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-27-layer-11" 
+			 data-x="['center','center','center','center']" data-hoffset="['-361','-394','-232','-98']" 
+			 data-y="['bottom','bottom','bottom','bottom']" data-voffset="['0','0','0','0']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:300;e:Power2.easeInOut;" 
+			 data-transform_out="x:[-100%];s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;" 
+			 data-mask_in="x:0px;y:[100%];" 
+			 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+			data-start="1040" 
+			data-basealign="slide" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 5;"><img src="assets/931fd-a0.png" alt="" data-ww="['346px','397px','262px','120px']" data-hh="['263px','292px','204px','94px']" data-no-retina> 
+		</div>
+
+		<!-- LAYER NR. 2 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-27-layer-12" 
+			 data-x="['center','center','center','center']" data-hoffset="['268','208','159','-1400']" 
+			 data-y="['bottom','bottom','bottom','top']" data-voffset="['-32','-9','8','150']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="y:top;s:300;e:Power2.easeInOut;" 
+			 data-transform_out="y:[175%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+			 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+			data-start="1050" 
+			data-basealign="slide" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 6;"><img src="assets/0e878-a2.png" alt="" data-ww="['823px','823px','477.7852348993289','401px']" data-hh="['328px','328px','180','151px']" data-no-retina> 
+		</div>
+
+		<!-- LAYER NR. 3 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-27-layer-13" 
+			 data-x="['center','center','center','center']" data-hoffset="['359','318','247','83']" 
+			 data-y="['bottom','bottom','bottom','bottom']" data-voffset="['36','40','37','0']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="opacity:0;s:300;e:Power2.easeInOut;" 
+			 data-transform_out="x:[100%];s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;" 
+			 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+			data-start="1750" 
+			data-basealign="slide" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 7;"><img src="assets/6cefd-a3.png" alt="" data-ww="['374px','374px','235','134px']" data-hh="['147px','147px','86','44px']" data-no-retina> 
+		</div>
+
+		<!-- LAYER NR. 4 -->
+		<div class="tp-caption WebProduct-Title   tp-resizeme" 
+			 id="slide-27-layer-7" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','1','0','0']" 
+			 data-y="['top','top','middle','top']" data-voffset="['119','120','-114','166']" 
+						data-fontsize="['90','90','75','75']"
+			data-lineheight="['90','90','75','70']"
+			data-fontweight="['400','400','100','200']"
+			data-color="['rgba(255, 255, 255, 1.00)','rgba(255, 255, 255, 1.00)','rgba(255, 255, 255, 1.00)','rgba(244, 244, 244, 1.00)']"
+			data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1000" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 8; white-space: nowrap; font-weight: 400; color: rgba(255, 255, 255, 1.00);">Simple 
+		</div>
+
+		<!-- LAYER NR. 5 -->
+		<div class="tp-caption WebProduct-Content   tp-resizeme" 
+			 id="slide-27-layer-9" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['top','top','middle','top']" data-voffset="['232','233','-21','337']" 
+						data-fontsize="['30','30','16','16']"
+			data-lineheight="['40','40','24','24']"
+			data-fontweight="['300','300','600','100']"
+			data-color="['rgba(247, 247, 247, 1.00)','rgba(247, 247, 247, 1.00)','rgba(237, 237, 237, 1.00)','rgba(229, 229, 229, 1.00)']"
+			data-width="['554','600','334','277']"
+			data-height="['122','none','76','68']"
+			data-whitespace="normal"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1500" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 9; min-width: 554px; max-width: 554px; max-width: 122px; max-width: 122px; white-space: normal; font-size: 30px; line-height: 40px; font-weight: 300; color: rgba(247, 247, 247, 1.00);"><div style="text-align: center">Just one click away. <br />Purchase any number of panels online</div> 
+		</div>
+
+		<!-- LAYER NR. 6 -->
+		<div class="tp-caption WebProduct-Button rev-btn " 
+			 id="slide-27-layer-8" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','2']" 
+			 data-y="['top','top','middle','bottom']" data-voffset="['335','345','87','206']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+				data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Linear.easeNone;"
+				data-style_hover="c:rgba(51, 51, 51, 1.00);bg:rgba(255, 255, 255, 1.00);"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1750" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-actions='[{"event":"click","action":"jumptoslide","slide":"rs-28","delay":""}]'
+			data-responsive_offset="on" 
+			data-responsive="off"
+			
+			style="z-index: 10; white-space: nowrap;letter-spacing:1px;">HOW DOES IT WORK? 
+		</div>
+	</li>
+	<!-- SLIDE  -->
+    <li data-index="rs-28" data-transition="slidevertical" data-slotamount="1" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="assets/1cabd-green.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Easy to Use" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+		<!-- MAIN IMAGE -->
+		<img src="assets/1cabd-green.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+		<!-- LAYERS -->
+
+		<!-- LAYER NR. 1 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-28-layer-12" 
+			 data-x="['left','left','left','left']" data-hoffset="['0','0','0','0']" 
+			 data-y="['top','top','top','top']" data-voffset="['0','0','0','0']" 
+						data-width="full"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" 
+			 data-transform_out="opacity:0;s:300;s:300;" 
+			 data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+			data-start="1750" 
+			data-basealign="slide" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 5;"><img src="assets/2cfde-sky.png" alt="" data-ww="['full','full','full','full']" data-hh="['400px','400px','400px','400px']" data-no-retina> 
+		</div>
+
+		<!-- LAYER NR. 2 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-28-layer-13" 
+			 data-x="['right','right','right','right']" data-hoffset="['-277','-277','-283','251']" 
+			 data-y="['top','top','top','top']" data-voffset="['-277','-277','-278','-178']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="y:[-100%];z:0;rX:0deg;rY:0;rZ:0deg;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" 
+			 data-transform_out="auto:auto;s:300;" 
+			 data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+			 data-mask_out="x:0;y:0;s:inherit;e:inherit;" 
+			data-start="1750" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 6;">
+				<div class="rs-looped rs-rotate"  data-easing="Linear.easeNone" data-startdeg="360" data-enddeg="-360" data-speed="7" data-origin="50% 50%"><img src="assets/ebe90-b4.png" alt="" data-ww="['570px','570px','570px','463']" data-hh="['548px','548px','548px','433']" data-no-retina> 
+				</div>
+		</div>
+
+		<!-- LAYER NR. 3 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-28-layer-14" 
+			 data-x="['left','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['top','top','top','top']" data-voffset="['410','410','438','438']" 
+						data-width="full"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:[175%];y:0px;z:0;rX:0;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:1;s:1500;e:Power3.easeOut;" 
+			 data-transform_out="opacity:0;s:300;s:300;" 
+			 data-mask_in="x:[-100%];y:0;" 
+			data-start="1750" 
+			data-basealign="slide" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 7;"><img src="assets/5984f-b1.png" alt="" data-ww="['full','full','full','full']" data-hh="" data-no-retina> 
+		</div>
+
+		<!-- LAYER NR. 4 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-28-layer-15" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','-8']" 
+			 data-y="['top','top','top','top']" data-voffset="['272','272','360','381']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power2.easeInOut;" 
+			 data-transform_out="opacity:0;s:300;s:300;" 
+			 data-mask_in="x:0px;y:[100%];" 
+			data-start="1750" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 8;"><img src="assets/2ddc3-b2.png" alt="" data-ww="['1201px','1201px','619px','479']" data-hh="['457px','457px','260px','189']" data-no-retina> 
+		</div>
+
+		<!-- LAYER NR. 5 -->
+		<div class="tp-caption WebProduct-Title   tp-resizeme" 
+			 id="slide-28-layer-7" 
+			 data-x="['left','left','left','center']" data-hoffset="['60','60','50','0']" 
+			 data-y="['top','top','top','top']" data-voffset="['200','200','132','175']" 
+						data-fontsize="['90','90','75','40']"
+			data-lineheight="['90','90','75','70']"
+			data-color="['rgba(255, 255, 255, 1.00)','rgba(255, 255, 255, 1.00)','rgba(252, 252, 252, 1.00)','rgba(249, 249, 249, 1.00)']"
+			data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:[-105%];z:0;rX:0deg;rY:0deg;rZ:-90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			 data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+			data-start="1000" 
+			data-splitin="chars" 
+			data-splitout="none" 
+			data-responsive_offset="on" 
+
+			data-elementdelay="0.1" 
+			
+			style="z-index: 9; white-space: nowrap; color: rgba(255, 255, 255, 1.00);">HASSLE-FREE 
+		</div>
+
+		<!-- LAYER NR. 6 -->
+		<div class="tp-caption WebProduct-Content   tp-resizeme" 
+			 id="slide-28-layer-9" 
+			 data-x="['left','left','left','center']" data-hoffset="['60','60','50','0']" 
+			 data-y="['top','middle','top','top']" data-voffset="['300','-61','235','326']" 
+						data-fontsize="['20','16','16','14']"
+			data-lineheight="['28','24','24','22']"
+			data-color="['rgba(252, 252, 252, 1.00)','rgba(249, 249, 249, 1.00)','rgba(252, 252, 252, 1.00)','rgba(249, 249, 249, 1.00)']"
+			data-width="['none','none','334','277']"
+			data-height="['none','none','76','68']"
+			data-whitespace="['nowrap','nowrap','normal','normal']"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1500" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 10; white-space: nowrap; font-size: 20px; line-height: 28px; color: rgba(252, 252, 252, 1.00);">Installation, Maintenance. Selling to local grids. All done for you by CloudSolar. 
+		</div>
+
+		<!-- LAYER NR. 7 -->
+		<div class="tp-caption WebProduct-Button rev-btn " 
+			 id="slide-28-layer-8" 
+			 data-x="['right','right','center','center']" data-hoffset="['60','60','0','0']" 
+			 data-y="['bottom','bottom','top','bottom']" data-voffset="['60','60','754','64']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+				data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Linear.easeNone;"
+				data-style_hover="c:rgba(51, 51, 51, 1.00);bg:rgba(255, 255, 255, 1.00);"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1750" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-actions='[{"event":"click","action":"jumptoslide","slide":"rs-29","delay":""}]'
+			data-responsive_offset="on" 
+			data-responsive="off"
+			
+			style="z-index: 11; white-space: nowrap;letter-spacing:1px;">I WANT A LICENSE 
+		</div>
+
+		<!-- LAYER NR. 8 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-28-layer-17" 
+			 data-x="['center','center','center','center']" data-hoffset="['-70','64','-73','24']" 
+			 data-y="['top','top','top','top']" data-voffset="['315','329','373','389']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:right;s:1500;e:Power2.easeInOut;" 
+			 data-transform_out="x:left;s:1500;e:Power3.easeInOut;s:1500;e:Power3.easeInOut;" 
+			data-start="1750" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 12;"><img src="assets/2167c-b3.png" alt="" data-ww="['215','175','142px','101px']" data-hh="['121','106','80px','59px']" data-no-retina> 
+		</div>
+	</li>
+	<!-- SLIDE  -->
+    <li data-index="rs-30" data-transition="slidevertical" data-slotamount="1" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="1500"  data-thumb="assets/cd2d5-red.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Easy to Use" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+		<!-- MAIN IMAGE -->
+		<img src="assets/cd2d5-red.jpg"  alt=""  data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-no-retina>
+		<!-- LAYERS -->
+
+		<!-- LAYER NR. 1 -->
+		<div class="tp-caption WebProduct-Title   tp-resizeme" 
+			 id="slide-30-layer-7" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['top','top','top','top']" data-voffset="['98','98','81','84']" 
+						data-fontsize="['90','90','75','50']"
+			data-lineheight="['90','90','75','70']"
+			data-fontweight="['100','100','300','100']"
+			data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="y:[-100%];z:0;rZ:35deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			 data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+			data-start="1000" 
+			data-splitin="chars" 
+			data-splitout="none" 
+			data-responsive_offset="on" 
+
+			data-elementdelay="0.05" 
+			
+			style="z-index: 5; white-space: nowrap; color: rgba(255, 255, 255, 1.00);">HASSLE-FREE 
+		</div>
+
+		<!-- LAYER NR. 2 -->
+		<div class="tp-caption WebProduct-Content   tp-resizeme" 
+			 id="slide-30-layer-9" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['top','top','top','top']" data-voffset="['229','229','207','189']" 
+						data-fontsize="['20','16','16','14']"
+			data-lineheight="['28','24','24','22']"
+			data-fontweight="['600','600','400','600']"
+			data-color="['rgba(252, 252, 252, 1.00)','rgba(239, 239, 239, 1.00)','rgba(255, 255, 255, 1.00)','rgba(249, 249, 249, 1.00)']"
+			data-width="['none','356','334','277']"
+			data-height="['none','none','76','68']"
+			data-whitespace="['nowrap','normal','normal','normal']"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1500" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 6; white-space: nowrap; font-size: 20px; line-height: 28px; color: rgba(252, 252, 252, 1.00);"><div style="text-align: center">Installation, Maintenance. Selling to local grids. All done for you by CloudSolar.</div> 
+		</div>
+
+		<!-- LAYER NR. 3 -->
+		<div class="tp-caption WebProduct-Button rev-btn " 
+			 id="slide-30-layer-8" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['middle','middle','top','bottom']" data-voffset="['2','2','355','286']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+				data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Linear.easeNone;"
+				data-style_hover="c:rgba(51, 51, 51, 1.00);bg:rgba(255, 255, 255, 1.00);"
+ 
+			 data-transform_in="x:-50px;opacity:0;s:1000;e:Power2.easeOut;" 
+			 data-transform_out="opacity:0;s:1500;e:Power4.easeIn;s:1500;e:Power4.easeIn;" 
+			data-start="1750" 
+			data-splitin="none" 
+			data-splitout="none" 
+			data-actions='[{"event":"click","action":"jumptoslide","slide":"rs-29","delay":""}]'
+			data-responsive_offset="on" 
+			data-responsive="off"
+			
+			style="z-index: 7; white-space: nowrap;letter-spacing:1px;">I WANT A LICENSE 
+		</div>
+
+		<!-- LAYER NR. 4 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-30-layer-16" 
+			 data-x="['center','center','center','center']" data-hoffset="['-350','-351','-271','-169']" 
+			 data-y="['bottom','bottom','bottom','bottom']" data-voffset="['0','0','0','0']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="normal"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:600;e:Power2.easeInOut;" 
+			 data-transform_out="auto:auto;s:1000;e:Power4.easeIn;" 
+			 data-mask_in="x:0px;y:[100%];" 
+			 data-mask_out="x:0;y:0;s:inherit;e:inherit;" 
+			data-start="1750" 
+			data-basealign="slide" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 8;"><img src="assets/12bfa-c10.png" alt="" data-ww="['400px','400px','400px','280px']" data-hh="['405px','405px','405px','284px']" data-no-retina> 
+		</div>
+
+		<!-- LAYER NR. 5 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-30-layer-17" 
+			 data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+			 data-y="['bottom','bottom','bottom','bottom']" data-voffset="['100','100','100','100']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:500;e:Power3.easeInOut;" 
+			 data-transform_out="x:[100%];s:1000;e:Power3.easeInOut;s:1000;e:Power3.easeInOut;" 
+			 data-mask_in="x:0px;y:0px;" 
+			 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+			data-start="2400" 
+			data-basealign="slide" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 9;"><img src="assets/1bf2f-c2.png" alt="" data-ww="['216px','216px','216px','103.96428571428571']" data-hh="['148px','148px','148px','71']" data-no-retina> 
+		</div>
+
+		<!-- LAYER NR. 6 -->
+		<div class="tp-caption   tp-resizeme" 
+			 id="slide-30-layer-18" 
+			 data-x="['center','center','center','center']" data-hoffset="['350','350','245','132']" 
+			 data-y="['bottom','bottom','bottom','bottom']" data-voffset="['0','0','0','0']" 
+						data-width="none"
+			data-height="none"
+			data-whitespace="nowrap"
+			data-transform_idle="o:1;"
+ 
+			 data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:600;e:Power2.easeInOut;" 
+			 data-transform_out="auto:auto;s:1000;" 
+			 data-mask_in="x:0px;y:[100%];" 
+			 data-mask_out="x:0;y:0;s:inherit;e:inherit;" 
+			data-start="2980" 
+			data-basealign="slide" 
+			data-responsive_offset="on" 
+
+			
+			style="z-index: 10;"><img src="assets/17786-c1.png" alt="" data-ww="['263px','263px','263px','182px']" data-hh="['371px','371px','371px','258px']" data-no-retina> 
+		</div>
+	</li>
+</ul>
+<div class="tp-static-layers">
+</div>
+<div class="tp-bannertimer tp-bottom" style="visibility: hidden !important;"></div>	</div>
+</div><!-- END REVOLUTION SLIDER -->
+		<script type="text/javascript">
+						var tpj=jQuery;
+			
+			var revapi7;
+			tpj(document).ready(function() {
+				if(tpj("#rev_slider_7_1").revolution == undefined){
+					revslider_showDoubleJqueryError("#rev_slider_7_1");
+				}else{
+					revapi7 = tpj("#rev_slider_7_1").show().revolution({
+						sliderType:"standard",
+jsFileLocation:"//localhost/revslider/public/assets/js/",
+						sliderLayout:"fullscreen",
+						dottedOverlay:"none",
+						delay:9000,
+						navigation: {
+							keyboardNavigation:"on",
+							keyboard_direction: "vertical",
+							mouseScrollNavigation:"on",
+							onHoverStop:"off",
+							touch:{
+								touchenabled:"on",
+								swipe_threshold: 75,
+								swipe_min_touches: 50,
+								swipe_direction: "vertical",
+								drag_block_vertical: false
+							}
+							,
+							bullets: {
+								enable:true,
+								hide_onmobile:true,
+								hide_under:1024,
+								style:"hephaistos",
+								hide_onleave:false,
+								direction:"vertical",
+								h_align:"right",
+								v_align:"center",
+								h_offset:30,
+								v_offset:0,
+								space:5,
+								tmp:''
+							}
+						},
+						responsiveLevels:[1240,1024,778,480],
+						visibilityLevels:[1240,1024,778,480],
+						gridwidth:[1400,1240,778,480],
+						gridheight:[868,768,960,720],
+						lazyType:"none",
+						shadow:0,
+						spinner:"spinner2",
+						stopLoop:"on",
+						stopAfterLoops:0,
+						stopAtSlide:1,
+						shuffle:"off",
+						autoHeight:"off",
+						fullScreenAutoWidth:"off",
+						fullScreenAlignForce:"off",
+						fullScreenOffsetContainer: "",
+						fullScreenOffset: "",
+						disableProgressBar:"on",
+						hideThumbsOnMobile:"off",
+						hideSliderAtLimit:0,
+						hideCaptionAtLimit:0,
+						hideAllCaptionAtLilmit:0,
+						debugMode:false,
+						fallbacks: {
+							simplifyAll:"off",
+							nextSlideOnWindowFocus:"off",
+							disableFocusListener:false,
+						}
+					});
+				}
+			});	/*ready*/
+		</script>
+		
+
+		</body>
+</html>
