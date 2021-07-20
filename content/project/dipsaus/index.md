@@ -9,10 +9,10 @@ links:
 - icon_pack: fab
   name: CRAN
   url: https://cran.r-project.org/package=dipsaus
-summary: R add-ons
+summary: A dipping sauce of R
 tags:
-- Deep Learning
-title: A dipping sauce of R
+- R Package
+title: R package `dipsaus`
 ---
 
 The package `dipsaus` is my personal project. The goal is to provide a toolbox that enhances base-R.

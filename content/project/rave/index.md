@@ -4,7 +4,8 @@ external_link: null
 image:
   caption: rave
   focal_point: Fit
-summary: Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, eius.
+summary: "Interactive iEEG analysis"
+weight: 1
 tags:
 - RAVE
 - iEEG
