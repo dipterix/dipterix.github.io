@@ -151,7 +151,7 @@
 
   <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
   <link rel="icon" type="image/png" href="{{ "/img/favicon.ico" | relURL }}">
-  <link rel="apple-touch-icon" type="image/png" href="{{ "/img/icon-192.png" | relURL }}">
+  <link rel="apple-touch-icon" type="image/png" href="{{ "/img/favicon.ico" | relURL }}">
 
   <link rel="canonical" href="{{ .Permalink }}">
 
@@ -168,7 +168,7 @@
     {{ $og_image = (printf "img/%s" site.Params.avatar) | absURL }}
     {{ $twitter_card = "summary" }}
   {{ else }}
-    {{ $og_image = "img/icon-192.png" | absURL }}
+    {{ $og_image = "img/favicon.ico" | absURL }}
     {{ $twitter_card = "summary" }}
   {{ end }}
   <meta property="twitter:card" content="{{ $twitter_card }}">
