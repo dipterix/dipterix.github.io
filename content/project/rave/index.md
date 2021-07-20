@@ -14,6 +14,8 @@ tags:
 title: RAVE - Statistical toolbox for intracranial EEG data
 ---
 
+RAVE is part of my PhD thesis with my advisor Dr. Meng Li and co-advisor Dr. Michael Beauchamp.
+
 Home page: [https://openwetware.org/wiki/RAVE](http://openwetware.org/wiki/RAVE)
 
 Installation guide: [https://openwetware.org/wiki/RAVE:Install](http://openwetware.org/wiki/RAVE:Install)
