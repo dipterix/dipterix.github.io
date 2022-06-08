@@ -18,6 +18,8 @@ image:
   focal_point: Left
   preview_only: false
 links:
+- name: "DOI:10.1111/biom.13684"
+  url: https://doi.org/10.1111/biom.13684
 - icon: github
   icon_pack: fab
   name: Github
@@ -73,7 +75,7 @@ coefficients(fit)
 Use `citation('spfda')` to generate citation information, or check [this link](https://arxiv.org/abs/2006.10163).
 
 ```
-Wang, Z, Magnotti, JF, Beauchamp, MS. Li, M, Functional Group Bridge for Simultaneous Regression and Support Estimation.
+Wang, Z., Magnotti, J., Beauchamp, M.S. and Li, M. (2022) Functional group bridge for simultaneous regression and support estimation. Biometrics, 00, 1– 13. https://doi.org/10.1111/biom.13684 
 ```
 
 

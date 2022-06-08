@@ -27,7 +27,8 @@ title: 'Interactive MRI viewer - `threeBrain`'
 <link href="../../lib/dipterixThreeBrain-1.0.1/dipterix.css" rel="stylesheet" />
 <script src="../../lib/dipterixThreeBrain-1.0.1/main.js"></script>
 <script src="../../lib/threejs_brain-binding-0.2.0/threejs_brain.js"></script>
-<body>
+
+
 <div id="htmlwidget_container">
   <div id="htmlwidget-10b2167231e00d19a0eb" style="width:100%;height:80vh;" class="threejs_brain html-widget"></div>
 </div>

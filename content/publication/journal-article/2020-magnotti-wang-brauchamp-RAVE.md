@@ -12,7 +12,7 @@ featured: true
 links: null
 projects: 
 - "RAVE"
-publication: "Arxiv"
+publication: "NeuroImage"
 publication_short: ""
 publication_types:
 - "2"
