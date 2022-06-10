@@ -8,7 +8,7 @@ profile:
   align: right
   image: user-full.jpg
   address: >
-    <p>Richards, 6A</p>
+    <p>Richards, 601A</p>
     <p>3700 Hamilton Walk</p>
     <p>Pennsylvania, PA, 19104</p>
 
