@@ -9,7 +9,7 @@
 locale                   : "en-US"
 title                    : "Dipterix's Website"
 title_separator          : "-"
-name                     : &name "Dipterix"
+name                     : &name "Researcher at Upenn"
 description              : &description "personal description"
 url                      : https://dipterix.org # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
