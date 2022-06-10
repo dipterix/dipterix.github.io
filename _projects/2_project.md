@@ -3,6 +3,7 @@ layout: page
 title: FileArray
 description: File-backed array for out-of-memory computation
 img: assets/img/filearray-1x1.png
+redirect: https://dipterix.github.io/filearray/
 importance: 2
 category: work
 ---
