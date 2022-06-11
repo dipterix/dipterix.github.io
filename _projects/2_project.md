@@ -6,6 +6,7 @@ img: assets/img/filearray-1x1.png
 redirect: https://dipterix.github.io/filearray/
 importance: 2
 category: work
+github: https://github.com/dipterix/filearray
 ---
 
 Every project has a beautiful feature showcase page.

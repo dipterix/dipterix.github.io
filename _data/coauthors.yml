@@ -1,18 +1,19 @@
-"Adams":
-  - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-    url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+"Beauchamp":
+  - firstname: ["Michael", "M.", "M. S.", "Michael S.", "Michael Stephen"]
+    url: https://scholar.google.com/citations?user=wHJH3TUAAAAJ
 
-"Podolsky":
-  - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-    url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"Magnotti":
+  - firstname: ["John", "J.", "J. F.", "John F."]
+    url: https://scholar.google.com/citations?user=lzUiqpwAAAAJ
 
-"Rosen":
-  - firstname: ["Nathan", "N."]
-    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+"Karas":
+  - firstname: ["Patrick", "P.", "P. J.", "Patrick J.", "Patrick Jacob"]
+    url: https://scholar.google.com/citations?user=huZPbjwAAAAJ
 
-"Bach": 
-  - firstname: ["Johann Sebastian", "J. S."]
-    url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"Metzger":
+  - firstname: ["Brian", "Brian A."]
+    url: https://scholar.google.com/citations?&user=nIN0ZNkAAAAJ
 
-  - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-    url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"Yoshor":
+  - firstname: ["Daniel"]
+    url: https://www.med.upenn.edu/apps/faculty/index.php/g275/p9385006

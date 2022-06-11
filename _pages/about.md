@@ -24,7 +24,7 @@ My research focuses on developing statistical machine learning tools and softwar
 ### Education
 
 * Ph.D., Statistics, Rice University (2016-2021)
-* B.A., Statistics, University of Science and Technology of China (2009-2013)
+* B.S., Statistics, University of Science and Technology of China (2009-2013)
 
 ### Links
 

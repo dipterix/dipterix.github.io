@@ -5,6 +5,7 @@ description: R Analysis & Visualization of iEEG
 img: assets/img/rave-logo-1x1.jpg
 importance: 1
 category: work
+github: https://github.com/beauchamplab/rave
 ---
 
 R Analysis and Visualization of intracranial EEG (RAVE) is free and open-source software for the analysis of intracranial electroencephalogram (iEEG) data, including data collected using strips and grids (electrocorticography, ECoG) and depth electrodes (stereotactic EEG). 
