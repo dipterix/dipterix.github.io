@@ -17,7 +17,7 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false  # includes social icons at the bottom of the page
 ---
 
-I am a PhD in Statistics, graduated from Rice University, currently doing researches at [Beauchamp's Lab](https://www.med.upenn.edu/beauchamplab/), Department of Neurosurgery, University of Pennsylvania. 
+I am a PhD in Statistics, currently doing researches at [Beauchamp's Lab](https://www.med.upenn.edu/beauchamplab/), Department of Neurosurgery, University of Pennsylvania. 
 
 My research focuses on developing statistical machine learning tools and software packages to help people make reproducible scientific discoveries, mainly interpretable machine learning, functional data analysis, multiple testing procedures with applications in neuroscience.
 
