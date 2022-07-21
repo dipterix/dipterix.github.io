@@ -15,16 +15,16 @@ categories: RAVE iEEG
 
 ## Background
 
-iEEG is an invasive technique to study the neuroactivity by placing high-sensitive electrodes directly into the human brain, or onto the cortical surface. 
-Without barriers such as the sculp to diffuse the signals, iEEG can achieve extraordinary spatial precisions. 
+iEEG is an invasive technique to study neuroactivities by placing high-sensitive electrodes directly into the human brain, or onto the cortical surface. 
+Without barriers such as the scalp to diffuse the signals, iEEG can achieve extraordinary spatial precisions. 
 
-One of the problems that follows is to locate the iEEG signals with reasonable accuracies. Studies have shown that brain patterns might be significantly different on locations that are even millimeters apart. Since the spatial precision is so high, inaccurate localizations can result in wrong conclusions. This is a fencing contest (I was intended to say slap contest here): even if you can attack the same place every time (high precision), there is no guaratee to win if each attack points to the air (low accuracy). 
+One of the challenges is locating the iEEG signals with reasonable accuracy. Studies have shown that brain patterns might vary significantly with even millimeters apart. With such high spatial precision in iEEG studies, inaccurate signal location can result in wrong conclusions. Think of a fencing contest (I intended to say slap contest here): even if you can attack the same place every time (high precision), there is no guarantee to win if each attack points to the air (low accuracy). 
 
-Another unique challenge is that researchers often have limited/no control over where iEEG electrodes are implanted. In non-invasive methods such as fMRI or sculp-EEG, researchers have full controls on where to collect brain responses because the subjects can be almost anyone with a functioning brain, and the data collection is often safe. iEEG subjects, however, are usually hospital patients who are waiting to be treated. iEEG data is more of a by-product from the entire treatment procedure. There is always a much bigger objective than scientific studies: neurosurgery, hence it is (almost) always the neurosurgeons who decide where to implant the electrodes.
+What makes the situation worse is that researchers often have limited/no control over iEEG electrode implantation. In non-invasive methods such as fMRI or scalp-EEG, subjects can be almost anyone with a functioning brain. The researchers can obtain complete control over the data collection procedures. iEEG subjects, however, are usually hospital patients waiting to be treated. iEEG data is more of a by-product of the entire treatment procedure. There is always a much bigger objective than the scientific studies: brain surgery. As a result, it is (almost) always the neurosurgeons who decide where to implant the electrodes. Researchers  often find it super challenging to even guess the rough coordinates of the electrodes before localizing them in software.
 
-All these problems might create a weird situation. When I started my first iEEG project, I finished preliminary data analysis weeks before obtaining the electrode locations. Three electrodes showed significant responses, but I had no ideas where they were. In this post, I plan to give an introduction on iEEG neuroimaging data processing pipeline from the following four topics:
+There are several dedicated computer programs for neuroimaging data, such as AFNI, FreeSurfer, dcm2niix, FSL... This post is a technical report on how RAVE uses these tools in its low-level implementation. Here are the four topics that will be covered:
 
-* Data formats and specifications
+* Data formats
 * Surface reconstruction
 * CT to T1 co-registration
 * Electrode localization
