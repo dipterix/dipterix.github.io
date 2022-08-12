@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Notes on Programming in R (1)"
+title:  "Programming in R - Note 1"
 date:   2022-08-12 13:42:55
-description: Notes and tricks
+description: How many points can R graphic devices handle
 tags: R visualization
 categories: R
 ---
