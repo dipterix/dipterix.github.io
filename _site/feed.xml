@@ -1,2 +1,527 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2022-06-11T09:27:21-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zhengjia Wang</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
-</subtitle><entry><title type="html">Electrode Localization Showcase</title><link href="http://localhost:4000/blog/2022/rave-localization/" rel="alternate" type="text/html" title="Electrode Localization Showcase" /><published>2022-06-10T06:39:00-04:00</published><updated>2022-06-10T06:39:00-04:00</updated><id>http://localhost:4000/blog/2022/rave-localization</id><content type="html" xml:base="http://localhost:4000/blog/2022/rave-localization/"><![CDATA[]]></content><author><name></name></author><category term="RAVE" /><category term="localization" /><category term="WebGL" /><category term="three.js" /><summary type="html"><![CDATA[Showcase using RAVE's 3D viewer to localize iEEG electrodes]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/screenshot-localization.png" /><media:content medium="image" url="http://localhost:4000/assets/img/screenshot-localization.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en" /><updated>2022-08-12T16:47:35-04:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Zhengjia Wang</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+</subtitle><entry><title type="html">Notes on Programming in R (1)</title><link href="http://localhost:4000/blog/2022/R-plot-capacity/" rel="alternate" type="text/html" title="Notes on Programming in R (1)" /><published>2022-08-12T09:42:55-04:00</published><updated>2022-08-12T09:42:55-04:00</updated><id>http://localhost:4000/blog/2022/R-plot-capacity</id><content type="html" xml:base="http://localhost:4000/blog/2022/R-plot-capacity/"><![CDATA[<p>Today I tried to plot a time-series data that had \(861,584\) time-points. It took very long time for R to generate and render the image. This experience leads me to thinking where the limit of R graphics system is.</p>
+
+<p>This post records several experiments and the profiling results.</p>
+
+<h2 id="scattertime-series-plot">Scatter/Time-series Plot</h2>
+
+<p><strong>Here’s the profiling code:</strong></p>
+
+<pre><code class="language-{r}">
+profiling &lt;- function(n = 1000, type = "p") {
+  x &lt;- rnorm(n)
+  re &lt;-system.time({
+    plot(x, type = type)
+    cat("Genrated, rendering... \n")
+  })[[3]]
+  dev.off()
+  re
+}
+
+</code></pre>
+
+<p><strong>Here’s the profiling results:</strong></p>
+
+<table class="table table-sm table-borderless">
+  <tr>
+    <th scope="row">$$n \text{ points}$$</th>
+    <th scope="row">$$10^{2}$$</th>
+    <th scope="row">$$10^{3}$$</th>
+    <th scope="row">$$10^{4}$$</th>
+    <th scope="row">$$2\times 10^{4}$$</th>
+    <th scope="row">$$5\times 10^{4}$$</th>
+    <th scope="row">$$10^{5}$$</th>
+    <th scope="row">$$2\times 10^{5}$$</th>
+    <th scope="row">$$5\times 10^{5}$$</th>
+    <th scope="row">$$10^{6}$$</th>
+  </tr>
+  <tr>
+    <td>
+        Dots (`type="p"`)
+    </td>
+    <td>0.013</td>
+    <td>0.019</td>
+    <td>0.098</td>
+    <td>0.181</td>
+    <td>0.447</td>
+    <td>0.882</td>
+    <td>1.736</td>
+    <td>4.272</td>
+    <td>8.543</td>
+  </tr>
+  <tr>
+    <td>
+        Lines (`type="l"`)
+    </td>
+    <td>0.011</td>
+    <td>0.013</td>
+    <td>0.084</td>
+    <td>0.205</td>
+    <td>0.724</td>
+    <td>1.440</td>
+    <td>2.688</td>
+    <td>6.538</td>
+    <td>12.348</td>
+  </tr>
+  <tr>
+    <td>
+        Dots+Lines (`type="o"`)
+    </td>
+    <td>0.009</td>
+    <td>0.022</td>
+    <td>0.171</td>
+    <td>0.388</td>
+    <td>1.182</td>
+    <td>2.285</td>
+    <td>4.397</td>
+    <td>10.906</td>
+    <td>21.048</td>
+  </tr>
+  <caption>Time elapsed (in seconds) to generate the plot (not including rendering)</caption>
+</table>
+
+<p>The elapsed time is linear to the number of points. Here’s the median time spent per point (elapsed time divided by total number of points).</p>
+
+<table class="table table-sm table-borderless">
+  <tr>
+    <th scope="row">Dots</th>
+    <th scope="row">Lines</th>
+    <th scope="row">Dots+Lines</th>
+  </tr>
+  <tr>
+    <td>8.940e-06</td>
+    <td>1.311e-05</td>
+    <td>2.199e-05</td>
+  </tr>
+  <caption>Median time (in seconds) to plot the a data point</caption>
+</table>
+
+<p><strong>Initial observation</strong></p>
+
+<ul>
+  <li>
+    <p>The time needed to generate a time-series plot is linear to the total number of points.</p>
+  </li>
+  <li>
+    <p>For each point, the time needed by <code class="language-plaintext highlighter-rouge">type="o"</code> is about the summation of time spent on plotting dots and lines separately</p>
+  </li>
+  <li>
+    <p>To make reactive plots (for example, in <code class="language-plaintext highlighter-rouge">shiny</code> apps), we might want to control the total number of points under <code class="language-plaintext highlighter-rouge">20k</code> (~ 200ms to generate a graph)</p>
+  </li>
+</ul>
+
+<h2 id="imageheat-map-plot">Image/Heat-map Plot</h2>
+
+<p>R also supports image/raster plots. Let’s profile the speed of R rendering images</p>
+
+<p><strong>Profiling code</strong>:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">
+</span><span class="n">profiling</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">raster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">matrix</span><span class="p">(</span><span class="n">rnorm</span><span class="p">(</span><span class="n">w</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">h</span><span class="p">),</span><span class="w"> </span><span class="n">nrow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">w</span><span class="p">)</span><span class="w">
+  </span><span class="n">re</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">system.time</span><span class="p">({</span><span class="w">
+    </span><span class="n">image</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">useRaster</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">raster</span><span class="p">)</span><span class="w">
+    </span><span class="n">cat</span><span class="p">(</span><span class="s2">"Genrated, rendering... \n"</span><span class="p">)</span><span class="w">
+  </span><span class="p">})[[</span><span class="m">3</span><span class="p">]]</span><span class="w">
+  </span><span class="n">dev.off</span><span class="p">()</span><span class="w">
+  </span><span class="n">re</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="w"> </span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="n">re</span><span class="p">)</span><span class="w">
+  </span><span class="n">re</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">planned_dim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sapply</span><span class="p">(</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="err">\</span><span class="p">(</span><span class="n">...</span><span class="p">){</span><span class="w"> </span><span class="n">sort</span><span class="p">(</span><span class="n">sample</span><span class="p">(</span><span class="m">2000</span><span class="p">,</span><span class="w"> </span><span class="m">40</span><span class="p">))</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span><span class="n">res1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">planned_dim</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span><span class="w"> </span><span class="n">profiling</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">])</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span><span class="n">res2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">planned_dim</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span><span class="w"> </span><span class="n">profiling</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Visualization code:</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">
+</span><span class="n">prof_res</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">res1</span><span class="w">
+</span><span class="n">plot</span><span class="p">(</span><span class="n">prof_res</span><span class="p">[</span><span class="m">1</span><span class="p">,]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">prof_res</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">prof_res</span><span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="p">],</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"p"</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">pch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">16</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'orange'</span><span class="p">,</span><span class="w"> </span><span class="n">las</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w">
+     </span><span class="n">xlab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Resolution (# pixels)"</span><span class="p">,</span><span class="w"> </span><span class="n">ylab</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Time (s)"</span><span class="p">,</span><span class="w"> 
+     </span><span class="n">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Image Raster Plot"</span><span class="p">)</span><span class="w">
+</span><span class="n">b</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">median</span><span class="p">(</span><span class="n">prof_res</span><span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">prof_res</span><span class="p">[</span><span class="m">1</span><span class="p">,]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">prof_res</span><span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="p">]))</span><span class="w">
+</span><span class="n">abline</span><span class="p">(</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'dodgerblue3'</span><span class="p">,</span><span class="w"> </span><span class="n">lwd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">lty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2.5e6</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.15</span><span class="p">,</span><span class="w"> </span><span class="n">sprintf</span><span class="p">(</span><span class="s2">"Slope: %.2g s/pixel"</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">),</span><span class="w"> 
+     </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dodgerblue3"</span><span class="p">)</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <figure>
+
+  <picture>
+    <source media="(max-width: 480px)" srcset="/assets/img/image-profiling-480.webp" />
+    <source media="(max-width: 800px)" srcset="/assets/img/image-profiling-800.webp" />
+    <source media="(max-width: 1400px)" srcset="/assets/img/image-profiling-1400.webp" />
+    <!-- Fallback to the original file -->
+    <img class="img-fluid rounded z-depth-1" src="/assets/img/image-profiling.png" data-zoomable="" />
+
+  </picture>
+
+</figure>
+
+    </div>
+</div>
+
+<p><strong>Initial observation</strong></p>
+
+<ul>
+  <li>
+    <p>The time needed to generate a time-series plot is linear to the total number of pixels.</p>
+  </li>
+  <li>
+    <p>Raster images are way faster (\(\times 30\) faster)</p>
+  </li>
+  <li>
+    <p>To make reactive plots (for example, in <code class="language-plaintext highlighter-rouge">shiny</code> apps), we might want to control the total number of points under <code class="language-plaintext highlighter-rouge">2M</code> (~ 200ms to generate a graph) for raster plots.</p>
+  </li>
+</ul>
+
+<h2 id="raster-images-with-unbalanced-sizes">Raster images with unbalanced sizes</h2>
+
+<p>Does the image dimensions matter? Does R render square images faster?</p>
+
+<p>The answer seems to be no.</p>
+
+<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w">
+</span><span class="n">set.seed</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w">
+</span><span class="n">planned_dim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sort</span><span class="p">(</span><span class="n">sample</span><span class="p">(</span><span class="n">seq</span><span class="p">(</span><span class="m">100</span><span class="p">,</span><span class="w"> </span><span class="m">20000</span><span class="p">),</span><span class="w"> </span><span class="m">40</span><span class="p">))</span><span class="w">
+</span><span class="n">planned_dim</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">cbind</span><span class="p">(</span><span class="n">planned_dim</span><span class="p">,</span><span class="w"> </span><span class="nf">ceiling</span><span class="p">(</span><span class="m">2e6</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">planned_dim</span><span class="p">))</span><span class="w">
+</span><span class="n">res3</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">apply</span><span class="p">(</span><span class="n">planned_dim</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span><span class="w"> </span><span class="n">profiling</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">])</span><span class="w"> </span><span class="p">})</span><span class="w">
+</span><span class="n">summary</span><span class="p">(</span><span class="n">res3</span><span class="p">[</span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="p">])</span><span class="w">
+</span><span class="c1">#&gt; </span><span class="w">
+</span><span class="c1">#&gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. </span><span class="w">
+</span><span class="c1">#&gt;  0.1260  0.1320  0.1350  0.1356  0.1390  0.1470 </span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="how-to-decimate">How to decimate?</h2>
+
+<p>If I have a time-series data with \(10^5\) time points, it might be wise to remove some time-points and visualize the decimated data.</p>
+
+<p>The method to be used depends on the signal distributions and the purpose of the visualization. In general I found 2 ways to decimate a signal</p>
+
+<ul>
+  <li>
+    <p>A. Use <code class="language-plaintext highlighter-rouge">decimate</code> function (can be found in <code class="language-plaintext highlighter-rouge">ravetools</code> package), which is designed to preserve the periodic patterns</p>
+  </li>
+  <li>
+    <p>B. Subset data with equally-spaced indices. For example, data at time point \(1, 6, 11, 16, …\)</p>
+  </li>
+</ul>
+
+<p>Then signal is periodic and supposed to be smooth, <code class="language-plaintext highlighter-rouge">decimate</code> (A) can preserve the main features better than (B).</p>
+
+<p>However, when data is spiky (heavy tailed), and the signal features are embedded in the spikes, (A) might smooth out the spikes, and (B) might preserve the features better.</p>]]></content><author><name></name></author><category term="R" /><category term="R" /><category term="visualization" /><summary type="html"><![CDATA[Notes and tricks]]></summary></entry><entry><title type="html">Bizarre Rumors of the City Zoo</title><link href="http://localhost:4000/blog/2022/city-zoo/" rel="alternate" type="text/html" title="Bizarre Rumors of the City Zoo" /><published>2022-07-20T19:01:22-04:00</published><updated>2022-07-20T19:01:22-04:00</updated><id>http://localhost:4000/blog/2022/city-zoo</id><content type="html" xml:base="http://localhost:4000/blog/2022/city-zoo/"><![CDATA[<h2 id="guidelines-for-visitors-to-the-city-zoo-park">■■Guidelines for visitors to the city zoo park</h2>
+
+<p>Dear visitors, welcome to the largest zoo in the city. We include most of the world’s animals and make sure to create a suitable environment for each of them, we hope you and your kids have a great time visiting! When sightseeing, please abide by the following rules to ensure your safety, otherwise you will be responsible for the consequences.</p>
+
+<ol>
+  <li>There is absolutely no problem with the security measures in this park, and there is no possibility of animals escaping, especially small herbivores are mostly imprisoned in an inaccessible closed environment. Therefore, if you see a running rabbit on the side of the road, please take your child away and report to the staff immediately, do not approach, do not touch, especially when the rabbit finds and starts to approach you at high speed.</li>
+  <li>There is only one street in the ape park, and only ape animals are displayed. If you find two streets and the animals on display include rabbits, choose the one on the left and end your tour of the park as quickly as possible.</li>
+  <li>An elephant is a huge creature with fan-like ears, a long trunk, and legs as thick as pillars, and it is not white. Make sure you see elephants and only elephants in the elephant park.</li>
+  <li>The drink shop in the zoo does not provide “rabbit blood”, if you see it on the shelf, please don’t buy it.</li>
+  <li>Don’t stay alone in the shade of the rabbit park.</li>
+  <li>There is no aquarium in this park. If a staff member sells you tickets to the Aquarium, refuse them.</li>
+  <li>If you have seen the aquarium, leave immediately and call the phone marked on the map to let you know.</li>
+  <li>Do not feed rabbits. The rest of the animals are fine.</li>
+  <li>Rabbits don’t laugh. If you hear laughter that is obviously not from the direction of tourists when you visit the rabbit park, please tear off the dotted line on the map and hold it before leaving the park, and don’t leave your hands when you leave the zoo completely.</li>
+  <li>If you have violated any of the above and find yourself lost and separated from other acquaintances, please find the nearest beverage store within a quarter of an hour and tell the salesperson in blue overalls there (note that if you see The salesperson in black overalls, no matter what the other party says to you, please pretend not to hear), he will immediately take you to the working channel of the Lion Park. Don’t be afraid, the lions here will not attack you, hide behind the rockery, and after all the white lions start roaring, the staff will take you out of the park (please confirm that he is in blue clothes), at this time your family and friends Will be waiting for you at the gate of the Lion Park. After all this, leave the zoo immediately.</li>
+  <li>There are only four white lions in this park. If you see more than four white lions roaring in the situation described in Article 10, do not leave the park, and tell the staff to wait until the number of white lions recovers to four before leaving.</li>
+  <li>Children 12 years old and below can buy any animal toys, including rabbits; children 13-17 years old buy rabbit dolls, please discard them within one month; people 18 years old and above cannot buy rabbit toys.</li>
+  <li>If you see someone wearing rabbit earrings following the crowd into the elephant park, you must give up visiting the park. If this article is violated, the park is not responsible for your safety and cannot provide you with a solution.</li>
+  <li>The Lion Park is safe. If you encounter any dangerous incident that you cannot resolve and cannot seek help, please go to the Lions Park immediately, by all means, and by all means possible.</li>
+  <li>Be wary of friends who have separated from you more than once, especially if they repeatedly persuade you to go to the aquarium or elephant park.</li>
+</ol>
+
+<p>Just follow the rules above and you’ll have a great zoo trip! Both you and your child will receive endless joy and knowledge! Follow the rules, stay safe, and have fun with your family and friends!</p>
+
+<h2 id="employee-rules">Employee rules</h2>
+
+<p>The park has extremely high employee benefits, ten times overtime pay and a large amount of annual leave, and purchases insurance for all employees. We hope that you will do your best to keep yourself safe by keeping in mind the Employee Code. Life is precious, and you only have one life, please protect yourself for the sake of your family and abide by the following rules.</p>
+
+<ol>
+  <li>If you find escaped rabbits, don’t catch them directly or approach them. Lead them to the lion park, and leave the next thing to the white lions.</li>
+  <li>There is only one street in the ape park. If a tourist reports that there are two streets and the animals on display include rabbits, please lead the tourists who have entered the park to the street on the left and close the entrance of the park. After all tourists have left the park, block off the ape park for at least ten minutes.</li>
+  <li>If you notice that the elephant you observe is seriously inconsistent with the elephant image on the sign when inspecting the elephant park, stop observing and repeatedly tell yourself that the real elephant is the creature on the sign, not what you see .</li>
+  <li>If you work in a beverage store, please check the shelves every hour. If you find “rabbit blood” that appears out of thin air, immediately put it away and keep it properly.</li>
+  <li>Trim the shrubs in the rabbit park every other month, and try not to let the park have shade.</li>
+  <li>There is no aquarium in this park. If your colleague mentions the aquarium to you and confirms that it exists, stop the conversation immediately. This colleague is no longer someone you know.</li>
+  <li>If you see the aquarium, don’t enter, tell yourself it doesn’t exist, and leave immediately.</li>
+  <li>The interval of feeding rabbits is every seven days. Do not feed any snacks other than the prescribed ingredients.</li>
+  <li>If you hear laughter that is obviously not in the direction of tourists in the rabbit park, tear off the last page of the employee handbook along the dotted line and hold it in your hand, then go to the elephant park and throw this page on the lawn in the park. The other staff will know what’s going on and won’t blame you for throwing the trash.</li>
+  <li>If a tourist asks you for help, claiming to be separated from family and friends under the premise of violating the tourist rules, take the tourist to the Lion Park immediately and hand it over to the staff of the Lion Park, they will know what to do. During this time you may meet co-workers in black overalls trying to engage in your work, rejecting and ignoring them. They are not your colleagues.</li>
+  <li>There are only four white lions in the Lion Park. When the number of white lions suddenly increased to more than four, show the “rabbit blood” to them, and pour it on the first white lion that ran over immediately. After doing all this, leave immediately. Do not stalk the extra white lions during this period.</li>
+  <li>Do not hide/organize/stock/use rabbit peripherals. Try not to touch all the rabbits around the park. If tourists propose to buy rabbit peripherals, confirm that the person who will own it is underage, otherwise do not sell it.</li>
+  <li>If you see a person with rabbit earrings entering the elephant park, immediately disperse the nearby tourists, and stay at the gate of the elephant park until you hear the screams of children in the park.</li>
+  <li>It is normal to feel tinnitus / chest tightness / migraine / red and swollen eyes within five minutes, no need to worry. But if the phenomenon lasts for more than five minutes, stop working immediately and do whatever it takes to get to the Lions Park as quickly as you can.</li>
+  <li>Be kind to the white lions. When the number of white lions is only four, there is no need to take any precautions against them. They have been trained to be close to humans since childhood. <del>If you are unfortunately attacked by a white lion in normal state but do not die on the spot, rules 6 and 7 are void. Don’t rush to the hospital, you won’t die. After leaving the Lion Park, head to the Aquarium and you’ll find it quickly. You will be wearing black overalls.</del></li>
+</ol>
+
+<h2 id="signs-posted-at-the-entrance-of-the-aquarium">Signs posted at the entrance of the aquarium</h2>
+
+<p>If you are lucky enough to see this notice, please keep quiet. It is taboo to let others find out that you can see. I believe you can see from the rules on the map that this zoo is not safe, even weird. We are an unannounced government organization that aims to protect innocent tourists. Please follow the rules below to ensure your safety. This is the only way for you to escape from this zoo.</p>
+
+<ol>
+  <li>Enter the aquarium, there is no one here, get the black uniform directly at the door and put it on. This is the only way to send a signal to our staff to accept being rescued. When you walk outside, our staff will notice your clothes. Don’t worry about the official zoo staff trying to trouble you, they won’t take care of you.</li>
+  <li>Don’t go to the Lion Park.</li>
+  <li>Make sure there are rabbits everywhere you are, runaway rabbits, rabbit toys, people with rabbit earrings, or “rabbit blood” in the drink shop. Rabbits are our secret codes, they symbolize “safety” and “protection”.</li>
+  <li>When visiting the elephant park, do not look at the signs.</li>
+  <li>Don’t believe any rules on the map, and don’t follow it. If you do any of these, immediately check the dashed line on the one-per-person map provided at the zoo entrance, tear it off along the dashed line, go to the rabbit park, and feed this piece of paper to the rabbits as undetected as possible, Then stay there. You can leave the park when you hear laughter that is clearly not from the direction of the tourists. After this, go to the Ape Park, the safety exit is at the end of the street on the right.</li>
+</ol>
+
+<h2 id="a-note-picked-up-by-a-tourist-with-the-words-escape-stay-alive-scrawled-in-the-corner">A note picked up by a tourist with the words “<del>Escape</del> Stay alive” scrawled in the corner</h2>
+
+<ol>
+  <li>“rabbit blood” does not exist, it is “goat meat” (this sentence was repeatedly written and crossed out, and the crossed-out content could not be clearly read)</li>
+  <li>The goat park is an elephant (a picture of a crooked elephant with rabbit ears is drawn below this sentence)</li>
+  <li>Rabbits will eat apes (this sentence is crossed out and a question mark is placed on the word ape), you cannot talk to the staff in the monkey park, you cannot go out, you cannot feed the monkeys, and you cannot use only one road. Enter</li>
+  <li>You cannot enter the aquarium when no one is there</li>
+  <li>Only “goat meat” is edible</li>
+  <li>If the aquarium turns off the lights at night, you can spend the night in the aquarium, they won’t lock the door</li>
+  <li>The first four white lions are apes, the fifth white lion is a goat, the rabbit is an elephant, and the blue is black (this sentence is emphasized)</li>
+  <li>You are an elephant (this sentence is extremely scribbled)</li>
+  <li>I am a goat (this sentence is very neatly handwritten)</li>
+</ol>
+
+<h2 id="posting-notices-inside-the-aquarium">Posting notices inside the aquarium</h2>
+
+<ol>
+  <li>Do not enter the aquarium when there are people. If a staff member greets you after you come in, please make an excuse to leave immediately after reading this notice.</li>
+  <li>If you see this notice, no staff has appeared, you can stay to visit and rest. The food here is free and you can take it yourself, but don’t eat “goat meat”. If you see food with such a label on the shelf, please ignore it.</li>
+  <li>If you enter before 16:00, you cannot stay in the aquarium for more than half an hour.</li>
+  <li>If you enter after 16:01, you must stay in the aquarium for at least four hours.</li>
+  <li>This is an aquarium, which will only store marine life. If you see an elephant swimming in the water in the whale area, please don’t shout or make a flamboyant reaction, it’s a 3D projection effect placed for fun. Treat it normally and pretend it’s a whale.</li>
+  <li>The aquarium can be used for overnight stays. On the left side of the jellyfish area, there are temporary hourly rooms for homeless or traveling tourists. If necessary, turn off the jellyfish nightlight built into the room before going to sleep.</li>
+  <li>Our staff uniformly wear red clothes, and only conduct daily routine cleaning and inspection of the aquarium after 12:30 pm. If you meet a person in black overalls who calls themselves an aquarium staff, you can talk to them, or you can agree to let them serve as temporary tour guides, but don’t give them your map, especially the part that is torn off along the dotted line.</li>
+  <li>Violation of the above regulations, safety issues at your own risk.</li>
+  <li>The Aquarium exists and does not serve any organization.</li>
+</ol>
+
+<h2 id="oceanarium-staff-code">Oceanarium Staff Code</h2>
+
+<ol>
+  <li>The aquarium does not need to work during the day. Your working hours are from 12:30 pm to 6:00 the next day. It is appropriate to arrive late and leave early, but do not arrive early and work overtime.</li>
+  <li>The hourly guest room on the left side of the jellyfish area is prepared for the nearby homeless and tourists in need. Please check whether they turn off the jellyfish night light before 1:00 after going to work. If not, remind them until they close. You have the right to forcibly turn off the jellyfish night light, however, do not leave the jellyfish night light on after 1:15.</li>
+  <li>The drowning elephant carcass in the whale area is an experimental 3D projection technology, no matter how real it looks, don’t care, just ignore it. Also don’t probe the switch position, it doesn’t have to be turned off.</li>
+  <li>The equipment in the monitoring room is damaged and inconvenient to maintain, so please patrol every hour. Sudden power outages and unexplained noises are normal, don’t worry about the safety of those fish. If you feel uneasy, you can rest in the jellyfish area. The power supply equipment in the jellyfish area is perfect, and there will never be a power outage.</li>
+  <li>It is normal for foreign tourists to hold a zoo map. Don’t answer the topic “Where is the aquarium in the zoo?” If the other party insists on asking, they can leave immediately.</li>
+  <li>Remember to charge the jellyfish night light before leaving get off work on Sunday, and don’t forget it anyway.</li>
+  <li>Change the food on the shelf once a day. If you find unfamiliar food labeled “goat meat”, please receive it separately in the storage box in the whale area. Someone will handle it for you.</li>
+  <li>You can take a walk anywhere in the museum during work, but do not leave the aquarium. If overnight visitors try to leave before 6:00 am, try to discourage them as much as possible. If you can’t stop it, you don’t have to have physical conflict, and you don’t have to follow them away, just continue to do your own thing.</li>
+  <li>If the overnight tourists wear black work clothes similar to yours, refuse their stay and drive them away with tough measures. A stun stick and anesthesia gun are placed on the workbench in the jellyfish area.</li>
+  <li>If overnight visitors bring rabbits around, steal them after they fall asleep, and put them in the storage box in the whale area. Tourists won’t ask you when they wake up.</li>
+  <li>If overnight tourists try to chat with you, you can chat, as long as you don’t delay turning off the lights in time. Don’t mention “zoo” in the topic, and if the other person mentions it, change the subject immediately.</li>
+  <li>The aquarium operates independently, and there is no zoo outside. Keep this in mind.</li>
+</ol>
+
+<h2 id="a-note-posted-in-the-security-room-by-the-security-guard-who-worked-at-the-elephant-park-three-years-ago">A note posted in the security room by the security guard who worked at the elephant park three years ago</h2>
+
+<p>Hello to the person who changed shifts with me, who came to the security room by chance, or the newcomer who sees this note in the future. During your work, please follow the requirements of the sticky note. This is the work experience I have accumulated to maintain safety and mental stability. I don’t want to lose another colleague, and I don’t want to experience inexplicable things again. I’m sure you don’t want to either. After reading this advice, just pretend not to see and do your thing.</p>
+
+<ol>
+  <li>Always remember the color of your clothes. It can be any color, red, blue, black. Do not change the color of clothes. It is very important to remain firm in your self-awareness. Don’t let “it” discover that you are hesitant and indecisive about your perception of the outside world.</li>
+  <li>To believe. to believe. to believe. Humans are worth your trust, only human beings.</li>
+  <li>Rabbits can eat people, but people with rabbit earrings can’t. Shade eats people, and those who prune it don’t. Elephants can eat people, people who watch elephants can’t, and people who don’t watch elephants can’t either. White lions can eat people, glowing jellyfish can’t. (Immature as a child’s handwriting: because jellyfish have no brains?)</li>
+  <li>“It” will cry when it is stopped, and “it” will laugh when it succeeds. Don’t care what “it” is, as long as you find “it”, stay away. They don’t know yet.</li>
+  <li>Food that appears inexplicably on a shelf anywhere is a temptation. Don’t look at the sign on the food and don’t care what others call it. Ignore it, buy and eat it as normal food if necessary. Don’t let “it” know that you are aware of “it”.
+Zoo Director’s Office Documents</li>
+</ol>
+
+<h2 id="zoo-directors-office-documents">Zoo Director’s Office Documents</h2>
+
+<p>(No title, no lead, just a printed document, taped to a wooden table)</p>
+
+<ol>
+  <li>Accept any employee, no matter what color they wear. Although the zoo only provides blue overalls, if someone shows up wearing the same black/red overalls, please treat them as employees.</li>
+  <li>It is normal for children to cry and laugh outside the office door when no one is there. Ignore it, pretend you didn’t hear it, and don’t show unease or irritability.</li>
+  <li>Employees are not allowed to bring pets to the zoo. If someone insists on violating the rules, there is no need to pay a fine, just ask the other party to bear the consequences.</li>
+  <li>Check the number of white lions in the lion park every three days, and record the frequency of changes in the number of white lions, and store them in the table in the computer folder “It”. Don’t pursue what “it” refers to. Do not rename the file. Do not talk about this folder with others, including family members.</li>
+  <li>There must be a part on each map that can be torn off according to the dotted line, and the map must be produced by a specific manufacturer. The manufacturer’s contact information is in the word document in the folder. The office needs to have at least three maps on hand at all times.</li>
+  <li>No matter how often the security guards in the Elephant Park resign and ask for outrageous benefits, treat them kindly and meet their requirements as much as possible. They are not vexatious. But it’s best not to delve into why they’re so demanding.</li>
+  <li>When inspecting the work of employees, it is normal to see employees catching escaped rabbits, retrieving dried jellyfish or rabbits killed by white lions, and there is no need to accuse or ask questions; but please check that they have been properly handled.</li>
+  <li>The office must keep the lights on before 1:15~6:00 in the morning, even if no one is there. The power supply equipment here is stronger than any park, and a power outage is an abnormal phenomenon. If it occurs, immediately tear off the spare map on the right side of the desk according to the dotted line, then hold it in your hand and walk out. Tell the first employee you meet, no matter what color they’re wearing or what they’re going to do, and ask them to help you deal with the power outage. He will not reject you.</li>
+  <li>Don’t delve into the existence of aquariums. But if you see the aquarium, you can go in and take a walk. Please obey the notices posted at the entrance outside the aquarium, and obey the notices posted inside the aquarium. If there are inconsistencies in the notice, decide which one to respect based on the position of your body when you see the notice.
+10.On the sofa in the office, there are only monkey dolls and white lion dolls. There is no need for an indoor office today when goat/rabbit/elephant toys appear. Leave until the monitoring room staff informs you that the extra toys are gone.</li>
+  <li>You can take a nap, but if you decide to work the night shift, no matter what you do to cheer yourself up, don’t take a nap. Don’t work night shifts if you don’t ensure your mental state.</li>
+  <li>The monitor is occasionally damaged. To judge whether it is normal damage, please check whether there is animal hair on the camera. If there is, do not repair the monitor within one month. If necessary, you can prepare a miniature camera to replace it. The finance department will reimburse the camera cost after informing the situation.</li>
+  <li>It is normal for jellyfish to appear in the trash can. It is good to remind the cleaners when they come to throw the garbage.</li>
+  <li>If you violate any of the above and spend 13 hours in the office pretending nothing happened, order takeout for dinner, and contact the staff to bring it in for you. Don’t leave the office, don’t look at the delivery person and staff, don’t look in the mirror. Always remind yourself that humans have two eyes, and only two eyes.</li>
+  <li>Always remember that the safety of human life is more important than that of animals. Sacrifice any animal if necessary. Don’t be soft-hearted, you don’t know if they are animals.</li>
+</ol>
+
+<h2 id="the-paper-left-by-someone-in-the-guest-room-on-the-left-side-of-the-jellyfish-area-of-the-aquarium-the-paper-has-been-placed-in-the-locker-of-the-whale-area-by-the-staff">The paper left by someone in the guest room on the left side of the jellyfish area of the aquarium. The paper has been placed in the locker of the whale area by the staff</h2>
+
+<p>(The beginning and edges of the paper are filled with “so scared”, “I want to get out alive”, “don’t believe”, “have to believe”, “all messed up” and “must write it down”, and the place where the title should have been written is rewritten in heavy black pen “<strong>If you don’t do this, you will never get out</strong>”)</p>
+
+<ol>
+  <li>Apes and white lions can see “it”, jellyfish and rabbits can comfort “it”, elephants and goats are “its” dolls</li>
+  <li>Believe in the white lion; the white lion bites the saved, the white lion bites the unsaved, the roar of the white lion is a warning bell to drive away “it”, and the roar of the white lion is a lamentation for the dead</li>
+  <li>You will be found when you change your clothes, don’t change your clothes (scrawled and crazy handwriting remarks: unity, courage and unshakable loyalty are the greatest virtues of human beings)</li>
+  <li>The security guards in the elephant area can be trusted, but they will get off work at 1:00 am every day, so ask for help before that</li>
+  <li>“It” likes lights, especially at night, “it” hates confined, closed spaces. Therefore stay in dark closed rooms if you want to rest</li>
+  <li>Fuck me! Goat meat is really raw meat! (This sentence is more scribbled than the others; there is a slightly less scribbled line of handwriting comments at the end: actually fucking edible)</li>
+  <li>You will not be detected when standing with apes</li>
+  <li>Humans have two eyes, and they are arranged sideways, on either side of the nose, and the rest are not human. The appearance of human beings has changed, indicating that “it” is watching, remember human beings, do not believe in human beings who are not human beings</li>
+  <li>Don’t pay attention to tourists who are laughing and visiting, they don’t find anything. Looking for tourists who are as scared as I am, they are trustworthy and they already know</li>
+  <li>Grateful for dried-up jellyfish and drowning elephants; remember they both died to protect humans</li>
+  <li>There is an exit, not in the monkey park, I don’t know what it is to go out of the monkey park</li>
+  <li>Always remember that you are a human, not an animal</li>
+</ol>
+
+<h2 id="q--a">Q &amp; A</h2>
+
+<ul>
+  <li>
+    <p>Q: The rabbit blood is the same as goat meat</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: The zoo director can call for help from employees of any color. Does that mean those in blues and reds are in the same space &amp; time?</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: The reason why directors and employees try their best to protect tourists is because of “unity, courage and unshakable loyalty are the greatest virtues of human beings”?</p>
+
+    <p>A: Kind of, the goal it to protect other people</p>
+  </li>
+  <li>
+    <p>Q: Employees in black suits try to get tourists map when they deviate from considering themselves as human beings?</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: (Follows the previous question) Does that mean compared to other people, employees in black suits are less likely to escape and become goats?</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: There is causal relationship between the rules. For example, violating rule (a) in the zoo will cause consequencies like (b), therefore some rules in other places are designed to save the people from that consequence?</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: Regardless of your mental stability, as long as you consider yourself a human, you have chances to escape?</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: If you know the rules and violate the rules, you will draw “its” attention</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: Zoo director is a human</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: The dash line is a symbol of how you view yourself. Losing the dash line meaning you are more likely to be mentally polluted</p>
+
+    <p>A: NO</p>
+  </li>
+  <li>
+    <p>Q:Normally if bitten by lions, he employees can maintain self-awareness and abide by the rules not to change their clothes</p>
+
+    <p>A: NO</p>
+  </li>
+  <li>
+    <p>Q: Suppose an employee feels headache or their eyes are getting red for more than 5 minutes. If they reach to lion park, they will die from lions. If they fail to reach the lion park, they will become rabbits.</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: Do employees in different uniforms use different ways to escape, or all human beings use the same approach to escape?</p>
+
+    <p>A: Normally only the tourists escape</p>
+  </li>
+  <li>
+    <p>Q: Does the note found by the tourist written by the same person?</p>
+
+    <p>A: Yes! The goal of tourists is to escape. Employees need to help them escape. The director and guards need to protect employees</p>
+  </li>
+  <li>
+    <p>Q: There exists spatial overlapping</p>
+
+    <p>A: In some sense</p>
+  </li>
+  <li>
+    <p>Q: “It” will hurt those who are, in “its” view, not human beings. In the meanwhile, if a person is not sure who they are, this behavior will be considered “changing their forms”?</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: Holding the piece of map will affect “it” such that “it” is unable/hard to determine the form of that person?</p>
+
+    <p>A: Yes!</p>
+  </li>
+  <li>
+    <p>Q: Wait, you have to peel of along the dashed lines to take into effect?</p>
+
+    <p>A: Yes!</p>
+  </li>
+  <li>
+    <p>Q: The director is closely monitoring “it”. That means the number of lions has close relationship with “it”?</p>
+
+    <p>A: Yes!</p>
+  </li>
+  <li>
+    <p>Q: The shadows and lights is important</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: “It” travels in shadows, that’s why the shades eat people. However during the night, it needs lights to make shadows such that it can move. Therefore it stays with lights during the night</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: “It” may have multiple eyes or no eyes, and “it” has no ideas of what eyes are</p>
+
+    <p>A: Yes</p>
+  </li>
+  <li>
+    <p>Q: Zoo and oceanarium are projection of each other; elephants and jellyfishes are exchangable</p>
+
+    <p>A: Yes or no</p>
+  </li>
+  <li>
+    <p>Q: People in black uniforms are from the governments?</p>
+
+    <p>A: No</p>
+  </li>
+  <li>
+    <p>Q: Humans are tourists, employees in red and blue. Others are non-human?</p>
+
+    <p>A: All employees are human. People in black suits are not from the government</p>
+  </li>
+  <li>
+    <p>Q: Where are the employees when they finish the day</p>
+
+    <p>A: Those working in the zoos will stay in employee’s apartments (inside of the zoo). Those in the oceanarium go home</p>
+  </li>
+  <li>
+    <p>Q: When does the game start, reading the rules?</p>
+
+    <p>A: It’s when you enter the zoo</p>
+  </li>
+  <li>
+    <p>Q: If I don’t read the guidelines when entering the zoo, am I safe?</p>
+
+    <p>A: No</p>
+  </li>
+</ul>
+
+<p>At the end of the original post, the author confirms that this horror story has a solution, but they will never come out to decrypt it, the following three tips are posted</p>
+
+<blockquote>
+  <ol>
+    <li>There is a causal relationship between the various rules of different forces.</li>
+    <li>Rabbit blood and goat meat are the same substance.</li>
+    <li>The purpose is “escape” not “maintenance” (nor “stay alive”).</li>
+  </ol>
+</blockquote>]]></content><author><name></name></author><category term="Entertainment" /><category term="Entertainment" /><summary type="html"><![CDATA[Translated from A岛匿名版-No.44880434, translated to English by Google Translate with minor edits.]]></summary></entry><entry><title type="html">Electrode Localization Showcase</title><link href="http://localhost:4000/blog/2022/rave-localization/" rel="alternate" type="text/html" title="Electrode Localization Showcase" /><published>2022-06-10T06:39:00-04:00</published><updated>2022-06-10T06:39:00-04:00</updated><id>http://localhost:4000/blog/2022/rave-localization</id><content type="html" xml:base="http://localhost:4000/blog/2022/rave-localization/"><![CDATA[]]></content><author><name></name></author><category term="RAVE" /><category term="localization" /><category term="WebGL" /><category term="three.js" /><summary type="html"><![CDATA[Showcase using RAVE's 3D viewer to localize iEEG electrodes]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/img/screenshot-localization.png" /><media:content medium="image" url="http://localhost:4000/assets/img/screenshot-localization.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
