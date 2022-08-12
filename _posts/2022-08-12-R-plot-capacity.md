@@ -94,11 +94,11 @@ text(x = 2.5e6, y = 0.15, sprintf("Slope: %.2g s/pixel", b),
      col = "dodgerblue3")
 ```
 
-::: {.row .mt-3}
+<div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.html path="assets/img/image-profiling.png" class="img-fluid rounded z-depth-1" zoomable=true %}
     </div>
-:::
+</div>
 
 **Initial observation**
 
