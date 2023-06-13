@@ -33,7 +33,7 @@ My research focuses on developing statistical machine learning tools and softwar
 * Yet Another Electrode Localizer (YAEL, [video demo](https://youtu.be/hfHZMfqIaGY))
 * Out-of-memory array (tensor) storage ([R:filearray](https://dipterix.org/filearray))
 * Functional group-bridge regression ([R:spfda](https://dipterix.org/spfda))
-* Overlapped cluster detection with function FDR control ([Github](https://github.com/dipterix/efcr))
+* Overlapped cluster detection with functional FDR control ([Github](https://github.com/dipterix/efcr))
 * Neuroimaging tools:
   - iEEG signal processing toolbox [R:ravetools](https://dipterix.org/ravetools))
   - Interface to ANTs (Advanced Normalization Tools [R:rpyANTs](https://dipterix.org/rpyANTs))
