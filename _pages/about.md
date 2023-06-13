@@ -28,9 +28,9 @@ My research focuses on developing statistical machine learning tools and softwar
 
 ### Software
 
-* _R_eproducible framework for _A_nalyzing and _V_isualization human i_E_EG (RAVE) ([rave.wiki](https://rave.wiki), supported by NIH R24MH117529)
+* Reproducible framework for Analyzing and Visualization human iEEG (RAVE) ([rave.wiki](https://rave.wiki), supported by NIH R24MH117529)
 * Web-based 3D brain viewer ([R:threeBrain](https://dipterix.org/threeBrain))
-* _Y_et _A_nother _E_lectrode _L_ocalizer (YAEL, [video demo](https://youtu.be/hfHZMfqIaGY))
+* Yet Another Electrode Localizer (YAEL, [video demo](https://youtu.be/hfHZMfqIaGY))
 * Out-of-memory array (tensor) storage ([R:filearray](https://dipterix.org/filearray))
 * Functional group-bridge regression ([R:spfda](https://dipterix.org/spfda))
 * Overlapped cluster detection with function FDR control ([Github](https://github.com/dipterix/efcr))
