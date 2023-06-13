@@ -21,9 +21,10 @@ I am a PhD in Statistics, currently doing researches at [Beauchamp's Lab](https:
 
 My research focuses on developing statistical machine learning tools and software packages to help people make reproducible scientific discoveries, mainly interpretable machine learning, functional data analysis, multiple testing procedures with applications in neuroscience.
 
-### Education
+### Training
 
 * Ph.D., Statistics, Rice University (2016-2021)
+* M.A., Statistics, Rice University (2016-2017)
 * B.S., Statistics, University of Science and Technology of China (2009-2013)
 
 ### Software
