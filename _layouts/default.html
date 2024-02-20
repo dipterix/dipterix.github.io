@@ -10,14 +10,16 @@
   </head>
 
   <!-- Body -->
-  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}" style="overflow-y:hidden;">
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
 
     <!-- Header -->
     {%- include header.html %}
 
     <!-- Content -->
-    <div class="container mt-5">
-      {{ content }}
+    <div style="width:100%; overflow-x:hidden;">
+      <div class="container mt-5">
+        {{ content }}
+      </div>
     </div>
 
     <!-- Footer -->

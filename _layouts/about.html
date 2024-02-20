@@ -13,7 +13,7 @@ layout: default
 
         <article>
           {% if page.profile -%}
-          <div class="profile float-{%- if page.profile.align == 'left' -%}left{%- else -%}right{%- endif -%}" style="overflow-y:visible;">
+          <div class="profile float-{%- if page.profile.align == 'left' -%}left{%- else -%}right{%- endif -%}" style="overflow-x:visible;">
             <!--
             {%- if page.profile.image and false %}
               {%- assign profile_image_path = page.profile.image | prepend: 'assets/img/' -%}
@@ -23,7 +23,7 @@ layout: default
               alt=page.profile.image -%}
             {% endif -%}
             -->
-            <div class="particle-container" style="min-width: 600px; position: relative; height: 400px; opacity: 0.4;"></div>
+            <div class="particle-container" style="min-width: 600px; position: relative; height: 400px; opacity: 0.6;"></div>
             {%- if page.profile.address %}
             <div class="address">
               {{ page.profile.address }}
