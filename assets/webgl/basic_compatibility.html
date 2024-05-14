@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>WebGL - Basic Tests</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<style>
+		body {
+			background-color: #fff;
+			color: #444;
+			margin: 0;
+		}
+		a {
+			color: #08f;
+		}
+		#information {
+		  background-color: #e2e2e2;
+		  padding: 7px;
+		}
+		#information pre {
+		  white-space: break-spaces;
+		}
+	</style>
+</head>
+<body>
+
+<div id="container" style="height:70vh; width:100%;"></div>
+<div id="information" style="height:30vh; width:100%;">
+  <pre id="information-details"></pre>
+</div>
+
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.151.3/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.151.3/examples/jsm/"
+    }
+  }
+</script>
+
+<script type="module">
+
+
+import * as THREE from 'three';
+import Stats from 'three/addons/libs/stats.module.js';
+let container, stats, info;
+let camera, scene, renderer;
+let infoMessage, shader;
+
+init();
+animate();
+printInfo();
+
+function init() {
+
+  camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight / 0.7, 1, 2000 );
+	camera.position.y = 400;
+
+	scene = new THREE.Scene();
+	scene.background = new THREE.Color( 0xffffff );
+
+	const ambientLight = new THREE.AmbientLight( 0xcccccc, 1.5 );
+	scene.add( ambientLight );
+
+	const pointLight = new THREE.PointLight( 0xffffff, 2.5, 0, 0 );
+	camera.add( pointLight );
+	scene.add( camera );
+
+  const material = new THREE.MeshPhongMaterial( { color: 0xff0000, side: THREE.DoubleSide } );
+  material.onBeforeCompile = (s) => {
+    shader = s;
+  };
+
+	let object = new THREE.Mesh( new THREE.IcosahedronGeometry( 75, 1 ), material );
+	object.position.set( - 100, 0, 200 );
+	scene.add( object );
+
+  //
+
+	renderer = new THREE.WebGLRenderer( { antialias: true } );
+	renderer.setPixelRatio( window.devicePixelRatio );
+	renderer.setSize( window.innerWidth, window.innerHeight * 0.7 );
+
+	container = document.getElementById( 'container' );
+	container.appendChild( renderer.domElement );
+	renderer.compile( scene, camera );
+
+	stats = new Stats();
+	container.appendChild( stats.dom );
+
+	info = document.getElementById( 'information-details' );
+
+	//
+
+	window.addEventListener( 'resize', onWindowResize );
+
+	window.THREE = THREE;
+  window.camera = camera;
+  window.renderer = renderer;
+  window.scene = scene;
+  window.sphereObject = object;
+  window.shader = shader;
+
+
+}
+
+function onWindowResize() {
+
+	camera.aspect = window.innerWidth / window.innerHeight / 0.7;
+	camera.updateProjectionMatrix();
+
+	renderer.setSize( window.innerWidth, window.innerHeight * 0.7 );
+
+}
+
+//
+
+function printInfo() {
+
+  const objectProgram = renderer.info.programs[0];
+  const objectUniforms = objectProgram.getUniforms().seq.map(u => { return {
+    "ID" : u.id,
+    "Size" : Array.isArray(u.cache) ? u.cache.length: 0
+  }; });
+
+  const data = {
+    "rendererCapabilities" : renderer.capabilities,
+    "objectInfo" : {
+      "uniforms" : objectUniforms,
+      "attributes": objectProgram.getAttributes(),
+      "shader": shader,
+    },
+  };
+
+  const _infoMessage = JSON.stringify(data)
+
+  if( infoMessage !== _infoMessage ) {
+    infoMessage = _infoMessage;
+    info.textContent = _infoMessage;
+  }
+
+}
+
+//
+
+function animate() {
+
+	requestAnimationFrame( animate );
+
+	render();
+	stats.update();
+
+}
+
+function render() {
+
+	const timer = Date.now() * 0.0001;
+
+	camera.position.x = Math.cos( timer ) * 800;
+	camera.position.z = Math.sin( timer ) * 800;
+
+	camera.lookAt( scene.position );
+
+	scene.traverse( function ( object ) {
+
+		if ( object.isMesh === true ) {
+
+			object.rotation.x = timer * 5;
+			object.rotation.y = timer * 2.5;
+
+		}
+
+	} );
+
+	renderer.render( scene, camera );
+
+}
+
+</script>
+
+
+</body>
+</html>
